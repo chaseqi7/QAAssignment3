@@ -1,0 +1,121 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+
+namespace A3PROG2070ZQ
+{
+    public static class UnitConversion
+    {
+        public static double Convert(double value, string convertFrom, string convertTo)
+        {
+            double result = 0.0;
+            string modConvertFrom = ModifyInput(convertFrom);
+            string modConvertTo = ModifyInput(convertTo);
+
+            result = value * GetMultiplierStub(modConvertFrom, modConvertTo);
+            return result;
+        }
+
+        public static double GetMultiplierStub(string convertFrom, string convertTo)
+        {
+            double multiplier = 3.0;
+            return multiplier;
+        }
+        public static string ModifyInput(string input)
+        {
+            string modInput = "";
+
+            if (input == "i" || input == "I" || input == "inches" || input == "Inches")
+            {
+                modInput = "inches";
+            }
+            else if (input == "f" || input == "F" || input == "feet" || input == "Feet")
+            {
+                modInput = "feet";
+            }
+            else if (input == "y" || input == "Y" || input == "yards" || input == "Yards")
+            {
+                modInput = "yards";
+            }
+            else if (input == "m" || input == "M" || input == "miles" || input == "Miles")
+            {
+                modInput = "miles";
+            }
+            else
+            {
+                throw new ArgumentException("Incorrect Conversion Unit");
+            }
+
+            return modInput;
+        }
+
+        public static double GetMultiplier(string convertFrom, string convertTo)
+        {
+            double multiplier = 1.0;
+
+            switch (convertFrom.ToLower())
+            {
+                case "inches":
+                    if (convertTo == "feet")
+                    {
+                        multiplier = 1.0 / 12.0;
+                    }
+                    else if (convertTo == "yards")
+                    {
+                        multiplier = 1.0 / 12.0 / 3.0;
+                    }
+                    else if (convertTo == "miles")
+                    {
+                        multiplier = 1.0 / 12.0 / 3.0 / 1760.0;
+                    }
+                    break;
+                case "feet":
+                    if (convertTo == "inches")
+                    {
+                        multiplier = 12.0;
+                    }
+                    else if (convertTo == "yards")
+                    {
+                        multiplier = 1.0 / 3.0;
+                    }
+                    else if (convertTo == "miles")
+                    {
+                        multiplier = 1.0 / 3.0 / 1760.0;
+                    }
+                    break;
+                case "yards":
+                    if (convertTo == "inches")
+                    {
+                        multiplier = 3.0 * 12.0;
+                    }
+                    else if (convertTo == "feet")
+                    {
+                        multiplier = 3.0;
+                    }
+                    else if (convertTo == "miles")
+                    {
+                        multiplier = 1.0 / 1760.0;
+                    }
+                    break;
+                case "miles":
+                    if (convertTo == "inches")
+                    {
+                        multiplier = 12.0 * 3.0 * 1760.0;
+                    }
+                    else if (convertTo == "yards")
+                    {
+                        multiplier = 1760.0;
+                    }
+                    else if (convertTo == "feet")
+                    {
+                        multiplier = 3.0 * 1760.0;
+                    }
+                    break;
+            }
+
+            return multiplier;
+        }
+    }
+}
